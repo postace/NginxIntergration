@@ -5,6 +5,7 @@ public enum  JwtClaimKey {
     CUSTOMER_NAME("customerName"),
     USER_ID("userId"),
     USER_NAME("userName"),
+    ROLES("roles"),
     EMAIL("email");
 
     private String value;
