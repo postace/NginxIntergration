@@ -34,6 +34,7 @@ public class TokenProducer {
         claims.put(JwtClaimKey.CUSTOMER_ID.value(), customer.getCustomerId());
         claims.put(JwtClaimKey.USER_ID.value(), customer.getUserId());
         claims.put(JwtClaimKey.USER_NAME.value(), customer.getUsername());
+        claims.put(JwtClaimKey.ROLES.value(), customer.getRoles().toString());
         claims.put(JwtClaimKey.EMAIL.value(), customer.getEmail());
 
         return produce(claims);
@@ -57,7 +58,7 @@ public class TokenProducer {
 
     public String createToken(JwtClaims claims) {
         JsonWebSignature jws = new JsonWebSignature();
-
+        // Must add header to satisfy nginx-jwt
         jws.setHeader("typ", "JWT");
         jws.setAlgorithmHeaderValue(AlgorithmIdentifiers.HMAC_SHA256);
         jws.setPayload(claims.toJson());
