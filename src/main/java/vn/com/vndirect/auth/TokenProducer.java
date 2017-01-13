@@ -75,20 +75,4 @@ public class TokenProducer {
         return new HmacKey(keyString.getBytes());
     }
 
-    public String produceJwtToken() throws JoseException {
-        Key key = new HmacKey(SECRET_KEY.getBytes());
-
-        JwtClaims claims = new JwtClaims();
-        claims.setSubject("pete");
-        claims.setClaim("iat", 1430677663);
-
-        JsonWebSignature jws = new JsonWebSignature();
-        jws.setHeader("typ", "JWT");
-        jws.setPayload(claims.toJson());
-        jws.setAlgorithmHeaderValue(AlgorithmIdentifiers.HMAC_SHA256);
-        jws.setKey(key);
-
-        return jws.getCompactSerialization();
-    }
-
 }
