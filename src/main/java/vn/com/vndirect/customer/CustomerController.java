@@ -49,7 +49,7 @@ public class CustomerController {
         String token = producer.token(customer);
         responseHeader.add("X-AUTH-TOKEN", token);
 
-        return new ResponseEntity<String>("{\"token\": " + token, responseHeader, HttpStatus.OK);
+        return new ResponseEntity<String>("{\"token\": " + token + "}", responseHeader, HttpStatus.OK);
     }
 
 }

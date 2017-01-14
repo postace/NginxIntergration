@@ -1,14 +1,13 @@
 package vn.com.vndirect.auth;
 
-import org.apache.log4j.Level;
 import org.jose4j.jws.AlgorithmIdentifiers;
 import org.jose4j.jws.JsonWebSignature;
 import org.jose4j.jwt.JwtClaims;
+import org.jose4j.jwt.NumericDate;
 import org.jose4j.keys.HmacKey;
 import org.jose4j.lang.JoseException;
 import vn.com.vndirect.customer.Customer;
 import vn.com.vndirect.util.JwtClaimKey;
-import vn.com.vndirect.util.LogUtil;
 
 import java.security.Key;
 import java.util.HashMap;
@@ -16,6 +15,7 @@ import java.util.Map;
 
 public class TokenProducer {
     private static final String SECRET_KEY = "I lov3 reading B00k in my Fr33 tim3 0R what^&%";
+    private static final int TIME_EXPIRE_IN_HOUR = 8;
     private String issuer;
     private String subject;
     private String[] audience;
@@ -48,6 +48,7 @@ public class TokenProducer {
         jwtClaims.setIssuer(issuer);
         jwtClaims.setSubject(subject);
         jwtClaims.setAudience(audience);
+        jwtClaims.setExpirationTime(getExpireIn(TIME_EXPIRE_IN_HOUR));
         jwtClaims.setExpirationTimeMinutesInTheFuture(expiration);
         jwtClaims.setNotBeforeMinutesInThePast(notBefore);
 
@@ -75,6 +76,13 @@ public class TokenProducer {
 
     private Key createKeyFromString(String keyString) {
         return new HmacKey(keyString.getBytes());
+    }
+
+    private NumericDate getExpireIn(int hours) {
+        final int HOUR_TO_MILLIS = 3_600_000;
+        long timeExpired = System.currentTimeMillis()
+                            + hours * HOUR_TO_MILLIS;
+        return NumericDate.fromMilliseconds(timeExpired);
     }
 
 }
