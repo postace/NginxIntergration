@@ -1,25 +1,42 @@
-package vn.com.vndirect.model;
+package vn.com.vndirect.customer;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.List;
 
+import static javax.persistence.GenerationType.AUTO;
+
 @SuppressWarnings("serial")
+@Entity
 public class Customer implements Serializable {
+    @Id
+    @GeneratedValue(strategy = AUTO)
+    private Long id;
     private String customerId;
     private String customerName;
     private String userId;
     private String username;
+    private String password;
     private List<String> roles;
     private String email;
+
+    public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
     public Customer() {
     }
 
-    public Customer(String customerId, String customerName, String userId, String username, List<String> roles, String email) {
+    public Customer(String customerId, String customerName, String userId, String username, String password, List<String> roles, String email) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.userId = userId;
         this.username = username;
+        setPassword(password);
         this.roles = roles;
         this.email = email;
     }
@@ -54,6 +71,14 @@ public class Customer implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = PASSWORD_ENCODER.encode(password);
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public List<String> getRoles() {

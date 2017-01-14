@@ -27,10 +27,12 @@ repositories {
 
 
 dependencies {
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('io.jsonwebtoken:jjwt:0.7.0')
+	runtime('com.h2database:h2')
     compile group: 'org.bitbucket.b_c', name: 'jose4j', version: '0.5.4'
 
 

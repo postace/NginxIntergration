@@ -1,4 +1,4 @@
-package vn.com.vndirect.web;
+package vn.com.vndirect.customer;
 
 import org.junit.Before;
 import org.junit.Test;

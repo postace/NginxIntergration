@@ -5,7 +5,7 @@ import org.jose4j.jws.JsonWebSignature;
 import org.jose4j.jwt.JwtClaims;
 import org.jose4j.keys.HmacKey;
 import org.jose4j.lang.JoseException;
-import vn.com.vndirect.model.Customer;
+import vn.com.vndirect.customer.Customer;
 import vn.com.vndirect.util.JwtClaimKey;
 
 import java.security.Key;

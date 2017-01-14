@@ -3,7 +3,7 @@ package vn.com.vndirect.auth;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import vn.com.vndirect.model.Customer;
+import vn.com.vndirect.customer.Customer;
 
 import java.util.ArrayList;
 import java.util.List;
