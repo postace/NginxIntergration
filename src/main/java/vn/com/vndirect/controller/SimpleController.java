@@ -1,4 +1,4 @@
-package vn.com.vndirect.simple;
+package vn.com.vndirect.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

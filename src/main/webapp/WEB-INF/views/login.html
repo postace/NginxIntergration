@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Nginx Intergration</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/resources/css/login.css}"/>
+    <script type="text/javascript" th:href="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Nginx need your information!</h1>
+
+    <form method="post" th:object="${customer}" class="form-signin">
+        <h2 class="form-signin-heading">Please login</h2>
+        <label class="sr-only">Username</label>
+        <input type="text" class="form-control" th:field="*{username}" th:required="required" placeholder="Enter your username" th:autofocus="autofocus"/><br/>
+        <label class="sr-only">Email</label>
+        <input type="email" class="form-control" th:field="*{email}" th:required="required" placeholder="Enter your email address"/> <br/>
+        <button type="submit" class="btn btn-lg btn-primary btn-block">Log in</button>
+    </form>
+</div>
+</body>
+</html>

@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TokenProducer {
-    public static final String SECRET_KEY = "I lov3 reading B00k in my Fr33 tim3 0R what^&%";
+    private static final String SECRET_KEY = "I lov3 reading B00k in my Fr33 tim3 0R what^&%";
     private String issuer;
     private String subject;
     private String[] audience;
@@ -40,7 +40,7 @@ public class TokenProducer {
         return produce(claims);
     }
 
-    public String produce(Map<String, String> claims) {
+    private String produce(Map<String, String> claims) {
         JwtClaims jwtClaims = new JwtClaims();
 
         jwtClaims.setIssuer(issuer);
@@ -56,7 +56,7 @@ public class TokenProducer {
         return createToken(jwtClaims);
     }
 
-    public String createToken(JwtClaims claims) {
+    private String createToken(JwtClaims claims) {
         JsonWebSignature jws = new JsonWebSignature();
         // Must add header to satisfy nginx-jwt
         jws.setHeader("typ", "JWT");
