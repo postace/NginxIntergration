@@ -1,5 +1,6 @@
 package vn.com.vndirect.auth;
 
+import org.apache.log4j.Level;
 import org.jose4j.jws.AlgorithmIdentifiers;
 import org.jose4j.jws.JsonWebSignature;
 import org.jose4j.jwt.JwtClaims;
@@ -7,6 +8,7 @@ import org.jose4j.keys.HmacKey;
 import org.jose4j.lang.JoseException;
 import vn.com.vndirect.customer.Customer;
 import vn.com.vndirect.util.JwtClaimKey;
+import vn.com.vndirect.util.LogUtil;
 
 import java.security.Key;
 import java.util.HashMap;
@@ -34,7 +36,7 @@ public class TokenProducer {
         claims.put(JwtClaimKey.CUSTOMER_ID.value(), customer.getCustomerId());
         claims.put(JwtClaimKey.USER_ID.value(), customer.getUserId());
         claims.put(JwtClaimKey.USER_NAME.value(), customer.getUsername());
-        claims.put(JwtClaimKey.ROLES.value(), customer.getRoles().toString());
+        //claims.put(JwtClaimKey.ROLES.value(), customer.getRoles().toString());
         claims.put(JwtClaimKey.EMAIL.value(), customer.getEmail());
 
         return produce(claims);

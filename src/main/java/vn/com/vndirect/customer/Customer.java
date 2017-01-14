@@ -3,10 +3,7 @@ package vn.com.vndirect.customer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -23,6 +20,7 @@ public class Customer implements Serializable {
     private String userId;
     private String username;
     private String password;
+    @Transient
     private List<String> roles;
     private String email;
 
