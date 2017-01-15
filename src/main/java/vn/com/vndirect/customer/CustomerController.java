@@ -45,7 +45,7 @@ public class CustomerController {
             return new ResponseEntity<String>("Incorrect username or password", responseHeader, HttpStatus.NOT_ACCEPTABLE);
         }
 
-        TokenProducer producer = new TokenProducer("vndirect", customer.getUsername(), new String[] {"audience"}, 1159f, 1147f);
+        TokenProducer producer = new TokenProducer("vndirect", customer.getUsername(), new String[] {"audience"}, 480f, 2f);
         String token = producer.token(customer);
         responseHeader.add("X-AUTH-TOKEN", token);
 

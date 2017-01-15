@@ -2,6 +2,7 @@ package vn.com.vndirect.customer;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.servlet.view.AbstractUrlBasedView;
 import org.springframework.web.servlet.view.InternalResourceView;
@@ -12,11 +13,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 public class CustomerControllerTest {
+
+    private CustomerRepository repository;
     private CustomerController controller;
 
-    @Before
-    public void setup() {
-        controller = new CustomerController();
+    @Autowired
+    public CustomerControllerTest(CustomerRepository repository, CustomerController controller) {
+        this.repository = repository;
+        this.controller = controller;
     }
 
     @Test

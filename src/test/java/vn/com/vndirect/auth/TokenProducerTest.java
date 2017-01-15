@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TokenProducerTest {
+    private static final String SECRET_KEY = "I lov3 reading B00k in my Fr33 tim3 0R what^&%";
     private TokenProducer producer;
     private Customer customer;
+    private JWTIssuer jwtIssuer;
 
     @Before
     public void setup() {
@@ -21,8 +23,9 @@ public class TokenProducerTest {
         roles.add("ROLE_ADMIN");
         roles.add("ROLE_USER");
         roles.add("ROLE_PREMIUM");
+        jwtIssuer = new JWTIssuer(SECRET_KEY);
 
-        customer = new Customer("1", "HaiPt", "1", "haipham", roles, "hai.phamthanh@vndirect.com.vn");
+        customer = new Customer("1", "HaiPt", "1", "haipham", "123456", roles, "hai.phamthanh@vndirect.com.vn");
     }
 
     @Test
