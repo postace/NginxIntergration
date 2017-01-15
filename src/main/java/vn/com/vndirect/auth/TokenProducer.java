@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TokenProducer {
-    private static final String SECRET_KEY = "I lov3 reading B00k in my Fr33 tim3 0R what^&%";
     private String issuer;
     private String subject;
     private String[] audience;
@@ -22,7 +21,7 @@ public class TokenProducer {
         this.audience = audience;
         this.expiration = expiration;
         this.notBefore = notBefore;
-        this.jwtIssuer = new JWTIssuer(SECRET_KEY);
+        this.jwtIssuer = new JWTIssuer(UtilMaker.getSecretKey());
     }
 
     public String token(Customer customer) {
