@@ -35,7 +35,4 @@ public class JWTParser {
         return jwtClaims.getClaimsMap();
     }
 
-    // TODO: Test parse token without audience
-    // TODO: Test parse token expired
-    // TODO: Test parse token with invalid issuer
 }
