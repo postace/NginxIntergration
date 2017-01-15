@@ -1,6 +1,5 @@
 package vn.com.vndirect.customer;
 
-import org.apache.log4j.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -10,10 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vn.com.vndirect.auth.TokenProducer;
-import vn.com.vndirect.util.LogUtil;
 
-import static org.apache.log4j.Level.INFO;
-import static org.apache.log4j.Level.WARN;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
