@@ -35,7 +35,13 @@ public class JWTParser {
         return jwtClaims.getClaimsMap();
     }
 
-    // TODO: Test parse token without audience
-    // TODO: Test parse token expired
-    // TODO: Test parse token with invalid issuer
+    public Map<String, Object> parseTokenNoValidate(String JWTToken) throws InvalidJwtException {
+        Key verificationKey = new HmacKey(secretKey.getBytes());
+        JwtConsumer consumer = new JwtConsumerBuilder()
+                .setVerificationKey(verificationKey)
+                .setSkipAllValidators().build();
+        JwtClaims claims = consumer.processToClaims(JWTToken);
+
+        return claims.getClaimsMap();
+    }
 }

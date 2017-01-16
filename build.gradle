@@ -16,7 +16,7 @@ apply plugin: 'org.springframework.boot'
 
 jar {
 	baseName = 'nginx'
-	version = '0.2-RELEASE'
+	version = '0.3-SNAPSHOT'
 }
 
 sourceCompatibility = 1.8
@@ -32,8 +32,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-	//compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.2.5.Final'
 
+	compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 	compile('io.jsonwebtoken:jjwt:0.7.0')
 	runtime('com.h2database:h2')
     compile group: 'org.bitbucket.b_c', name: 'jose4j', version: '0.5.4'
