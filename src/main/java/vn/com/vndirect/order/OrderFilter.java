@@ -17,6 +17,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 import static org.apache.log4j.Level.INFO;
 
@@ -42,14 +43,12 @@ public class OrderFilter extends GenericFilterBean {
 
         String requestURI = request.getRequestURI();
 
-        Gson gson = new Gson();
-        Order order = gson.fromJson(request.getReader(), Order.class);
-
+        String requestBody = request.getReader().lines().collect(Collectors.joining());
         LogUtil.log(INFO, this, "Customer %s is %s at %s:%n%s",
                 userService.getCustomer().getUsername(),
                 request.getMethod(),
                 requestURI,
-                gson.toJson(order));
+                requestBody);
 
     }
 
