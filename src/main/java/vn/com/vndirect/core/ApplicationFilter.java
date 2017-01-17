@@ -34,6 +34,7 @@ public class ApplicationFilter extends GenericFilterBean {
         HttpServletRequest request = (HttpServletRequest) req;
         saveSessionToThreadLocal(request);
         chain.doFilter(req, res);
+        SecurityContextHolder.getContext().setAuthentication(null);
     }
 
     private void saveSessionToThreadLocal(HttpServletRequest request) {
