@@ -14,11 +14,16 @@ public class JWTParser {
     private String officialIssuer;
     private String secretKey;
 
+    public JWTParser(String secretKey) {
+        this.secretKey = secretKey;
+    }
+
     public JWTParser(String issuer, String secretKey) {
         this.officialIssuer = issuer;
         this.secretKey = secretKey;
     }
 
+    @SuppressWarnings("unused")
     public Map<String, Object> parseToken(String JWTToken) throws InvalidJwtException {
 
         Key verificationKey = new HmacKey(secretKey.getBytes());
