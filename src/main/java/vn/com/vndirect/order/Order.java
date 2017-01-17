@@ -1,9 +1,10 @@
 package vn.com.vndirect.order;
 
+import com.sun.javafx.binding.StringFormatter;
+
 import java.io.Serializable;
 
 public class Order implements Serializable {
-    private static final long serialVersionUID = -8285853936696144358L;
     private Long account;
     private int quantity;
     private int price;
@@ -57,5 +58,11 @@ public class Order implements Serializable {
 
     public void setSymbol(String symbol) {
         this.symbol = symbol;
+    }
+
+    public String toString() {
+        return String.format("{account: %d, quantity: %d, price: %d, " +
+                "orderType: %s, side: %s, symbol: %s}",
+                account, quantity, price, orderType, side, symbol);
     }
 }

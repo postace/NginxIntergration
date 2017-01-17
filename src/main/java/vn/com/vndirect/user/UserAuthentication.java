@@ -48,4 +48,8 @@ public class UserAuthentication implements Authentication {
         return user.getUsername();
     }
 
+    public UserDetails getUser() {
+        return user;
+    }
+
 }
