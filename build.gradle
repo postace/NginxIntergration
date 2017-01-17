@@ -39,5 +39,5 @@ dependencies {
     compile('org.bitbucket.b_c:jose4j:0.5.4')
 
 
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }

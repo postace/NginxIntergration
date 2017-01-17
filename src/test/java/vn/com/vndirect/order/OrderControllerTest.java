@@ -1,4 +1,4 @@
-package vn.com.vndirect.customer;
+package vn.com.vndirect.order;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,41 +14,38 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import vn.com.vndirect.NginxApplication;
+import vn.com.vndirect.auth.TokenConsumer;
+import vn.com.vndirect.auth.UtilMaker;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = NginxApplication.class)
-@WebAppConfiguration
-@TransactionConfiguration(defaultRollback = true)
+@TransactionConfiguration
 @Transactional
-public class CustomerControllerTest {
+@WebAppConfiguration
+public class OrderControllerTest {
 
     @Autowired
     private WebApplicationContext wac;
-
+    private TokenConsumer consumer;
     private MockMvc mockMvc;
 
     @Before
     public void setup() {
+        consumer = new TokenConsumer(UtilMaker.getSecretKey());
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
     @Test
-    public void performSuccessLogin() throws Exception {
-        String jsonOfJohn = "{ \"username\": \"johndoe\", \"password\": \"123456\" }";
-        mockMvc.perform(post("/customer/login")
-                .contentType(MediaType.APPLICATION_JSON).content(jsonOfJohn))
-                .andExpect(status().isOk());
-    }
+    public void testCreateOrder() throws Exception {
+        String requestCreateJson = "{ \"quantity\": 1000, \"price\":15300, \"orderType\": \"LO\"" +
+                ", \"account\": 10123554, \"side\": \"NB\", \"symbol\": \"ACB\"}";
 
-    @Test
-    public void performFailLogin() throws Exception {
-        String jsonOfFake = "{ \"username\": \"aaaaaa\", \"password\": \"123456\" }";
-        mockMvc.perform(post("/customer/login")
-                .contentType(MediaType.APPLICATION_JSON).content(jsonOfFake))
-                .andExpect(status().is4xxClientError());
+        mockMvc.perform(post("/order")
+                .contentType(MediaType.APPLICATION_JSON_UTF8).content(requestCreateJson))
+                .andExpect(status().isCreated());
     }
 
 }
