@@ -3,15 +3,15 @@ package vn.com.vndirect.order;
 import com.google.gson.Gson;
 import org.apache.log4j.Level;
 import org.jose4j.jwt.consumer.InvalidJwtException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
-import vn.com.vndirect.auth.TokenConsumer;
-import vn.com.vndirect.auth.UtilMaker;
-import vn.com.vndirect.customer.Customer;
 import vn.com.vndirect.user.TokenParser;
 import vn.com.vndirect.user.UserAuthentication;
+import vn.com.vndirect.user.UserService;
+import vn.com.vndirect.user.UserServiceImpl;
 import vn.com.vndirect.util.LogUtil;
 
 import javax.servlet.FilterChain;
@@ -28,12 +28,14 @@ public class OrderFilter extends GenericFilterBean {
     private static final String HTTP_POST = "POST";
     private static final String AUTH_HEADER_NAME = "Authorization";
     private static final String HEADER_BEARER = "Bearer ";
-    private static final String ORDER_REQUEST_URI = "/order";
 
     private final TokenParser parser;
+    private UserService userService;
 
-    public OrderFilter(TokenParser parser) {
+    @Autowired
+    public OrderFilter(TokenParser parser, UserService userService) {
         this.parser = parser;
+        this.userService = userService;
     }
 
     @Override
@@ -45,35 +47,21 @@ public class OrderFilter extends GenericFilterBean {
         String token = headers[1];
         String requestURI = request.getRequestURI();
 
-        if (requestURI.contains(ORDER_REQUEST_URI)) {
-            if (HTTP_POST.equalsIgnoreCase(request.getMethod())) {
+        if (HTTP_POST.equalsIgnoreCase(request.getMethod())) {
+            try {
+                Gson gson = new Gson();
+                Order order = gson.fromJson(request.getReader(), Order.class);
+                userAuth = parser.getAuthentication(token);
 
-                try {
-                    Gson gson = new Gson();
-                    Order order = gson.fromJson(request.getReader(), Order.class);
-                    userAuth = parser.getAuthentication(token);
-
-                    SecurityContextHolder.getContext().setAuthentication(userAuth);
-                    LogUtil.log(Level.INFO, this, "Customer %s is post at %s:%n%s",
-                            userAuth.getName(), requestURI ,gson.toJson(order));
-                } catch (InvalidJwtException e) {
-                    e.printStackTrace();
-                }
+                SecurityContextHolder.getContext().setAuthentication(userAuth);
+                LogUtil.log(Level.INFO, this, "Customer %s is post at %s:%n%s",
+                                            userService.getCustomer().getUsername(),
+                                            requestURI,
+                                            gson.toJson(order));
+            } catch (InvalidJwtException e) {
+                e.printStackTrace();
             }
         }
-    }
-
-    @SuppressWarnings("unused")
-    private String convertBodyRequestToString(HttpServletRequest request) {
-        try {
-            return request
-                    .getReader()
-                    .lines()
-                    .collect(Collectors.joining(System.lineSeparator()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "";
     }
 
 }
